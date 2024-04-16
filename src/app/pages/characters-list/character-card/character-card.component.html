@@ -1,0 +1,23 @@
+<mat-card class="card">
+  <mat-card-header class="card-header">
+    <img mat-card-avatar class="header-image" [src]="pictureUrl" alt="" />
+    <mat-card-title class="character-name">{{ character().name }}</mat-card-title>
+    <mat-card-subtitle>{{ character().country }}</mat-card-subtitle>
+  </mat-card-header>
+  <img mat-card-image [src]="pictureUrl" alt="" />
+  <mat-card-content>
+    <div>Stamina: {{ character().stamina | number }}</div>
+    <div>Stun: {{ character().stun | number }}</div>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-mini-fab color="warn" (click)="delete(character().id)">
+      <mat-icon>delete</mat-icon>
+    </button>
+    <a mat-mini-fab color="primary">
+      <mat-icon>visibility</mat-icon>
+    </a>
+    <button mat-mini-fab>
+      <mat-icon>star</mat-icon>
+    </button>
+  </mat-card-actions>
+</mat-card>
