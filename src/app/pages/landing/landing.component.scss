@@ -1,0 +1,14 @@
+:host {
+  display: block;
+  background-image: url("/assets/landing-page.jpeg");
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.enter-button {
+  position: absolute;
+  top: 50%;
+  left: 20%;
+}

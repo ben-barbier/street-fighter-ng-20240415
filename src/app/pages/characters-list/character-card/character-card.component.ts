@@ -1,18 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  Component,
-  computed,
-  DestroyRef,
-  effect,
-  EventEmitter,
-  inject,
-  input,
-  Input,
-  OnInit,
-  output,
-  Output,
-  signal,
-} from '@angular/core';
+import { Component, DestroyRef, inject, input, OnInit, output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
@@ -20,6 +7,7 @@ import { RouterLinkWithHref } from '@angular/router';
 import { CharacterDTO } from '../../../shared/models/character.model';
 import { CharactersService } from '../../../shared/services/characters.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ArenaService } from '../../../shared/services/arena.service';
 
 @Component({
   selector: 'app-character-card',
@@ -33,6 +21,7 @@ export class CharacterCardComponent implements OnInit {
   public deleted = output<void>();
 
   private _characterService = inject(CharactersService);
+  private _arenaService = inject(ArenaService);
   private _destroyRef = inject(DestroyRef);
 
   public pictureUrl = '';
@@ -46,5 +35,9 @@ export class CharacterCardComponent implements OnInit {
       .deleteById(id)
       .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe(() => this.deleted.emit());
+  }
+
+  public addToArena(): void {
+    this._arenaService.addCharacterToArena(this.character());
   }
 }
