@@ -8,6 +8,7 @@ import { provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
 import { reducers } from './store/reducers';
 import { CharactersEffects } from './store/effects/characters.effects';
+import { ArenaEffects } from './store/effects/arena.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -24,6 +25,6 @@ export const appConfig: ApplicationConfig = {
         strictStateImmutability: true,
       },
     }),
-    provideEffects([CharactersEffects]),
+    provideEffects([CharactersEffects, ArenaEffects]),
   ],
 };

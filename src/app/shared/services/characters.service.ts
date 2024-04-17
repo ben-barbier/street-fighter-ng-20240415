@@ -65,4 +65,8 @@ export class CharactersService {
   public create(character: CharacterDTO): Observable<void> {
     return this._http.post<void>(`${this._baseUrl}/characters`, character);
   }
+
+  public fight(character1: string, character2: string): Observable<CharacterDTO> {
+    return this._http.get<CharacterDTO>(`${this._baseUrl}/characters/${character1}/fight?versus=${character2}`);
+  }
 }

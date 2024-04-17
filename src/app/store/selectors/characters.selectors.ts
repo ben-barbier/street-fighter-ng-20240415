@@ -3,7 +3,7 @@ import { createFeatureSelector, createSelector, Store } from '@ngrx/store';
 import { CharacterDTO } from '../../shared/models/character.model';
 
 // selectors
-const selectCharacters = createFeatureSelector<CharacterDTO[]>('characters');
+export const selectCharacters = createFeatureSelector<CharacterDTO[]>('characters');
 const selectCharacter = (id: string) =>
   createSelector(selectCharacters, (state: CharacterDTO[]) => state.find((c) => c.id === id));
 

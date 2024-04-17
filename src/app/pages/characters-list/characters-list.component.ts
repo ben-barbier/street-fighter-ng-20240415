@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CharacterCardComponent } from './character-card/character-card.component';
 import { CharactersDispatchers } from '../../store/dispatchers/characters.dispatchers';
-import { CharactersSelectors } from '../../store/selectors/characters-selectors.service';
+import { CharactersSelectors } from '../../store/selectors/characters.selectors';
 import { AsyncPipe } from '@angular/common';
 
 @Component({
@@ -12,12 +12,12 @@ import { AsyncPipe } from '@angular/common';
   styleUrl: './characters-list.component.scss',
 })
 export class CharactersListComponent implements OnInit {
-  private charactersDispatchers = inject(CharactersDispatchers);
-  private charactersSelectors = inject(CharactersSelectors);
+  private _charactersDispatchers = inject(CharactersDispatchers);
+  private _charactersSelectors = inject(CharactersSelectors);
 
-  public characters$ = this.charactersSelectors.characters$;
+  public characters$ = this._charactersSelectors.characters$;
 
   ngOnInit(): void {
-    this.charactersDispatchers.getAll();
+    this._charactersDispatchers.getAll();
   }
 }

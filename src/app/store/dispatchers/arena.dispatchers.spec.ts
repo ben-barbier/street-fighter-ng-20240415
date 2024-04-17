@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { CharactersSelectors } from './characters-selectors.service';
+import { ArenaDispatchers } from './arena.dispatchers';
 
-describe('CharactersService', () => {
-  let service: CharactersSelectors;
+describe('ArenaDispatchersService', () => {
+  let service: ArenaDispatchers;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(CharactersSelectors);
+    service = TestBed.inject(ArenaDispatchers);
   });
 
   it('should be created', () => {

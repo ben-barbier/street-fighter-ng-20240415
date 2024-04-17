@@ -1,15 +1,23 @@
 import { Component, inject } from '@angular/core';
-import { ArenaService } from '../../shared/services/arena.service';
 import { AsyncPipe, JsonPipe } from '@angular/common';
+import { ArenaSelectors } from '../../store/selectors/arena.selectors';
+import { MatButton } from '@angular/material/button';
+import { ArenaDispatchers } from '../../store/dispatchers/arena.dispatchers';
 
 @Component({
   selector: 'app-arena',
   standalone: true,
-  imports: [AsyncPipe, JsonPipe],
+  imports: [AsyncPipe, JsonPipe, MatButton],
   templateUrl: './arena.component.html',
   styleUrl: './arena.component.scss',
 })
 export class ArenaComponent {
-  private arenaService = inject(ArenaService);
-  public arena$ = this.arenaService.arena$;
+  private _arenaSelectors = inject(ArenaSelectors);
+  private _arenaDispatchers = inject(ArenaDispatchers);
+
+  public arena$ = this._arenaSelectors.arena$;
+
+  public fight(): void {
+    this._arenaDispatchers.fight();
+  }
 }
