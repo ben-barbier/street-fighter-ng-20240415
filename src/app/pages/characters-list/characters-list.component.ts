@@ -11,7 +11,7 @@ import { AsyncPipe } from '@angular/common';
   templateUrl: './characters-list.component.html',
   styleUrl: './characters-list.component.scss',
 })
-export class CharactersListComponent implements OnInit {
+export default class CharactersListComponent implements OnInit {
   private _charactersDispatchers = inject(CharactersDispatchers);
   private _charactersSelectors = inject(CharactersSelectors);
 

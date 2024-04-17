@@ -11,7 +11,7 @@ import { ArenaDispatchers } from '../../store/dispatchers/arena.dispatchers';
   templateUrl: './arena.component.html',
   styleUrl: './arena.component.scss',
 })
-export class ArenaComponent {
+export default class ArenaComponent {
   private _arenaSelectors = inject(ArenaSelectors);
   private _arenaDispatchers = inject(ArenaDispatchers);
 
