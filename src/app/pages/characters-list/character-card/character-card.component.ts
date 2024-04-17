@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, DestroyRef, inject, input, OnInit, output } from '@angular/core';
+import { Component, DestroyRef, EventEmitter, inject, input, OnInit, Output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
@@ -8,6 +8,7 @@ import { CharacterDTO } from '../../../shared/models/character.model';
 import { CharactersService } from '../../../shared/services/characters.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ArenaService } from '../../../shared/services/arena.service';
+import { CharactersDispatchers } from '../../../store/dispatchers/characters.dispatchers';
 
 @Component({
   selector: 'app-character-card',
@@ -18,11 +19,10 @@ import { ArenaService } from '../../../shared/services/arena.service';
 })
 export class CharacterCardComponent implements OnInit {
   public character = input.required<CharacterDTO>();
-  public deleted = output<void>();
+  @Output() public deleted = new EventEmitter<void>();
 
-  private _characterService = inject(CharactersService);
   private _arenaService = inject(ArenaService);
-  private _destroyRef = inject(DestroyRef);
+  private _charactersDispatchers = inject(CharactersDispatchers);
 
   public pictureUrl = '';
 
@@ -30,11 +30,8 @@ export class CharacterCardComponent implements OnInit {
     this.pictureUrl = `http://localhost:4200/assets/characters/${this.character().id}_thumbnail.png`;
   }
 
-  public delete(id: string): void {
-    this._characterService
-      .deleteById(id)
-      .pipe(takeUntilDestroyed(this._destroyRef))
-      .subscribe(() => this.deleted.emit());
+  public delete(): void {
+    this._charactersDispatchers.deleteCharacter(this.character());
   }
 
   public addToArena(): void {

@@ -1,29 +1,23 @@
-import { Component, DestroyRef, inject, OnInit } from '@angular/core';
-import { CharactersService } from '../../shared/services/characters.service';
-import { CharacterDTO } from '../../shared/models/character.model';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Component, inject, OnInit } from '@angular/core';
 import { CharacterCardComponent } from './character-card/character-card.component';
+import { CharactersDispatchers } from '../../store/dispatchers/characters.dispatchers';
+import { CharactersSelectors } from '../../store/selectors/characters-selectors.service';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-characters-list',
   standalone: true,
-  imports: [CharacterCardComponent],
+  imports: [CharacterCardComponent, AsyncPipe],
   templateUrl: './characters-list.component.html',
   styleUrl: './characters-list.component.scss',
 })
 export class CharactersListComponent implements OnInit {
-  private _charactersService = inject(CharactersService);
-  private _destroyRef = inject(DestroyRef);
-  public characters: CharacterDTO[] = [];
+  private charactersDispatchers = inject(CharactersDispatchers);
+  private charactersSelectors = inject(CharactersSelectors);
+
+  public characters$ = this.charactersSelectors.characters$;
 
   ngOnInit(): void {
-    this._charactersService
-      .getAll()
-      .pipe(takeUntilDestroyed(this._destroyRef))
-      .subscribe((characters) => (this.characters = characters));
-  }
-
-  public removeCharacterFromList(character: CharacterDTO) {
-    this.characters = this.characters.filter((c) => c.id !== character.id);
+    this.charactersDispatchers.getAll();
   }
 }

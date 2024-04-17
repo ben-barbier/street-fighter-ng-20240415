@@ -57,4 +57,12 @@ export class CharactersService {
   public deleteById(id: string): Observable<void> {
     return this._http.delete<void>(`${this._baseUrl}/characters/${id}`);
   }
+
+  public update(character: CharacterDTO): Observable<void> {
+    return this._http.put<void>(`${this._baseUrl}/characters/${character.id}`, character);
+  }
+
+  public create(character: CharacterDTO): Observable<void> {
+    return this._http.post<void>(`${this._baseUrl}/characters`, character);
+  }
 }
